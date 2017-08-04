@@ -98,6 +98,5 @@ public class AllListFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        adapter = null;
     }
 }

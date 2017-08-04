@@ -82,8 +82,10 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         if (meat == null)
             meat = new Meat();
-        priceOutput.addTextChangedListener(watcherPrice);
-        weightOutput.addTextChangedListener(watcherWeight);
+        priceOutput.addTextChangedListener(watcher);
+        weightOutput.addTextChangedListener(watcher);
+        weightComing.addTextChangedListener(watcher);
+        weightComing.addTextChangedListener(watcher);
         dateComing.setOnClickListener(this);
         dateOutput.setOnClickListener(this);
         return view;
@@ -183,7 +185,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         progressDialog.show();
     }
 
-    TextWatcher watcherWeight = new TextWatcher() {
+    TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -196,24 +198,21 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void afterTextChanged(Editable s) {
-            double weightLost = convertToDouble(weightComing.getText().toString()) - convertToDouble(s.toString());
-            double result = (weightLost * 100) / convertToDouble(weightComing.getText().toString());
-            shrinkage.setText(String.format("Усушка: %.2f ", result) + "%");
+            colculate();
         }
     };
-    TextWatcher watcherPrice = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+    private void colculate() {
+        if (weightComing.getText().length() != 0 && weightOutput.getText().length() != 0) {
+            double weightLost = convertToDouble(weightComing.getText().toString())
+                    - convertToDouble(weightOutput.getText().toString());
+            double result = (weightLost * 100) / convertToDouble(weightComing.getText().toString());
+            shrinkage.setText(String.format("Усушка: %.2f ", result) + "%");
+        } else {
+            return;
         }
 
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
+        if (priceComing.getText().length() != 0 && priceOutput.getText().length() != 0) {
             double coming = convertToDouble(priceComing.getText().toString())
                     * convertToDouble(weightComing.getText().toString());
             double output = convertToDouble(priceOutput.getText().toString())
@@ -221,7 +220,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             double prof = output - coming;
             profit.setText(String.format("Прибыль: %s грн", prof));
         }
-    };
+    }
 
     @Override
     public void onResume() {

@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        createMenu();
+        if (getTagFrg(this) == null) {
+            setTagFrg(this, TAG_ALLLISTFRAGMENT);
+        }
         showCurrentFragment();
     }
 
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 if (fragment instanceof DetailsFragment) {
                     frg = (DetailsFragment) fragment;
                     frg.saveMeat();
-                    }
+                }
                 Log.i(TAG, "onOptionsItemSelected: action_settings");
                 break;
             case R.id.action_add:
@@ -99,12 +101,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void changeAll() {
+//        if (this.getApplication() == null) return;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.containerFragment);
-        try {
-            ((StockApp) this.getApplication()).setTagFrg(fragment.getClass().getSimpleName());
-        } catch (NullPointerException e) {
-            Log.i(TAG, "changeAll: NullPointerException");
-        }
+        if (fragment == null) return;
+        setTagFrg(this, fragment.getClass().getSimpleName());
         createMenu();
     }
 
@@ -118,16 +118,13 @@ public class MainActivity extends AppCompatActivity {
         ((MainActivity) activity).createMenu();
     }
 
-    public static String getTagFrg(Activity activity) {
+    public String getTagFrg(Activity activity) {
         return ((StockApp) activity.getApplication()).getTagFrg();
     }
 
     //TODO
     private void showCurrentFragment() {
         Fragment frg = null;
-        if (getTagFrg(this) == null) {
-            setTagFrg(this, TAG_ALLLISTFRAGMENT);
-        }
         if (getTagFrg(this).equals(TAG_ALLLISTFRAGMENT)) {
             frg = new AllListFragment();
         }
