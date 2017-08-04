@@ -170,10 +170,16 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == MeatDao.HANDLER_RESULT_OK) {
-                progressDialog.dismiss();
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+            switch (msg.what) {
+                case MeatDao.HANDLER_RESULT_OK:
+                    progressDialog.dismiss();
+                    getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                    break;
+                case MeatDao.HANDLER_RESULT_ERR:
+                    progressDialog.dismiss();
+                    break;
             }
+
         }
     };
 
@@ -181,7 +187,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Saving");
+        progressDialog.setMessage("Сохранение");
         progressDialog.show();
     }
 
@@ -198,11 +204,11 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void afterTextChanged(Editable s) {
-            colculate();
+            calculate();
         }
     };
 
-    private void colculate() {
+    private void calculate() {
         if (weightComing.getText().length() != 0 && weightOutput.getText().length() != 0) {
             double weightLost = convertToDouble(weightComing.getText().toString())
                     - convertToDouble(weightOutput.getText().toString());
@@ -218,7 +224,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             double output = convertToDouble(priceOutput.getText().toString())
                     * convertToDouble(weightOutput.getText().toString());
             double prof = output - coming;
-            profit.setText(String.format("Прибыль: %s грн", prof));
+            profit.setText(String.format("Прибыль: %.2f грн", prof));
         }
     }
 

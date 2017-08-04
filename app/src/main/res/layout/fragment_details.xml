@@ -63,7 +63,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Вес"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,7 +84,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Цена"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </LinearLayout>
 
             <TextView
@@ -137,7 +137,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Вес"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </LinearLayout>
 
             <LinearLayout
@@ -158,36 +158,34 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Цена"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textShrinkage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:hint="Усушка"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textProfit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="40dp"
-                android:layout_gravity="center"
-                android:gravity="right"
-                android:textSize="18sp"
-                android:hint="Прибыль" />
-            <TextView
-                android:id="@+id/textShrinkage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="40dp"
-                android:layout_gravity="center"
                 android:gravity="right"
-                android:textSize="18sp"
-                android:hint="Усушка" />
-            <!--<Button-->
-            <!--android:id="@+id/buttonSave"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="сохранить"/>-->
+                android:hint="Прибыль"
+                android:textSize="18sp" />
+
         </LinearLayout>
     </ScrollView>
 

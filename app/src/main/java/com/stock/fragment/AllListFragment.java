@@ -1,5 +1,6 @@
 package com.stock.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,7 +32,7 @@ public class AllListFragment extends Fragment {
     private MeatAdapter adapter;
     //    private static String key;
     private ArrayList<Meat> allMeats;
-
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
@@ -52,6 +53,7 @@ public class AllListFragment extends Fragment {
 
         dao = new MeatDao(handler);
         if (allMeats == null || allMeats.size() == 0) {
+            showProgressDialog();
             allMeats = new ArrayList<>();
             dao.getAllMeats(getLastRowId());
         } else {
@@ -80,19 +82,31 @@ public class AllListFragment extends Fragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case MeatDao.HANDLER_RESULT_LIST:
+                    progressDialog.dismiss();
                     ArrayList<Meat> list = (ArrayList<Meat>) msg.obj;
                     allMeats.addAll(list);
                     meatsToAdapter(list);
+                    break;
+                case MeatDao.HANDLER_NOT_FOUND:
+                    progressDialog.dismiss();
                     break;
             }
         }
     };
 
     private String getLastRowId() {
-        if (allMeats == null||allMeats.size()==0) {
+        if (allMeats == null || allMeats.size() == 0) {
             return null;
         }
         return allMeats.get(allMeats.size() - 1).getId();
+    }
+
+    private void showProgressDialog() {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Загрузка списка");
+        progressDialog.show();
     }
 
     @Override

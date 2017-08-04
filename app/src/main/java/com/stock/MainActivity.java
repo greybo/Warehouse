@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        if (getTagFrg(this) == null) {
-            setTagFrg(this, TAG_ALLLISTFRAGMENT);
-        }
         showCurrentFragment();
     }
 
@@ -96,16 +93,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Log.i(TAG, "onBackPressed");
+        if (getSupportFragmentManager().getBackStackEntryCount() <= 1) {
+            finish();
+            return;    
+        }
         super.onBackPressed();
+        getSupportFragmentManager().popBackStack();
         changeAll();
     }
 
     private void changeAll() {
-//        if (this.getApplication() == null) return;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.containerFragment);
-        if (fragment == null) return;
-        setTagFrg(this, fragment.getClass().getSimpleName());
-        createMenu();
+        if (fragment != null) {
+            setTagFrg(this, fragment.getClass().getSimpleName());
+        }
+        showCurrentFragment();
     }
 
     public static void setTitle(Activity activity, String title) {
@@ -125,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
     //TODO
     private void showCurrentFragment() {
         Fragment frg = null;
+        if (getTagFrg(this) == null) {
+            setTagFrg(this, TAG_ALLLISTFRAGMENT);
+        }
         if (getTagFrg(this).equals(TAG_ALLLISTFRAGMENT)) {
             frg = new AllListFragment();
         }
