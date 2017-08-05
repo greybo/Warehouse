@@ -69,9 +69,9 @@ public class MeatDao extends ObjectDao {
         });
     }
 
-    public void getAllMeats(String key) {
+    public void getAllMeats(final String key) {
         Query query;
-        final int limit = 50;
+        final int limit = 30;
         if (key != null) {
             query = meatRef.orderByKey().endAt(key).limitToLast(limit);
         } else {
@@ -83,7 +83,10 @@ public class MeatDao extends ObjectDao {
                 List<Meat> meats = new ArrayList<>();
                 for (DataSnapshot s : dataSnapshot.getChildren()) {
                     Meat m = s.getValue(Meat.class);
-                    meats.add(m);
+                    assert m != null;
+                    if (key == null || !m.getId().equals(key)) {
+                        meats.add(m);
+                    }
                 }
                 if (meats.size() == 0) {
                     success(HANDLER_NOT_FOUND);
