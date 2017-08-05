@@ -43,13 +43,13 @@ public class AllListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (adapter != null) {
-                    DetailsFragment frg = DetailsFragment.newInstans((Meat) adapter.getItem(position));
+                    DetailsFragment frg = DetailsFragment.newInstance((Meat) adapter.getItem(position));
                     StockUtil.changeFragment(getActivity(), frg, "allListFragment");
                 }
 
             }
         });
-        MainActivity.setTitle(getActivity(), "Список");
+        MainActivity.setTitle(getActivity(), getString(R.string.alllist_frg_load_title_warehouse));
 
         dao = new MeatDao(handler);
         if (allMeats == null || allMeats.size() == 0) {
@@ -105,7 +105,7 @@ public class AllListFragment extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Загрузка списка");
+        progressDialog.setMessage(getString(R.string.alllist_frg_load_list));
         progressDialog.show();
     }
 

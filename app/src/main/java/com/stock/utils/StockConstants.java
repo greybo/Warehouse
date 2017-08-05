@@ -8,6 +8,8 @@ import com.stock.fragment.DetailsFragment;
  */
 
 public class StockConstants {
-    public final static String TAG_ALLLISTFRAGMENT ="AllListFragment";// AllListFragment.class.getSimpleName();
-    public final static String TAG_DETAILFRAGMENT = "DetailsFragment";//;DetailsFragment.class.getSimpleName();
+    public final static String TAG_ALLLISTFRAGMENT = AllListFragment.class.getSimpleName();
+    public final static String TAG_DETAILFRAGMENT = DetailsFragment.class.getSimpleName();
+    public final static String CONST_COMING = "coming";
+    public final static String CONST_OUTPUT = "output";
 }

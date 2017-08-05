@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.i("log_tag", "onCreateOptionsMenu: " + getTagFrg(this));
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         if (getTagFrg(this) == null)
@@ -72,19 +70,18 @@ public class MainActivity extends AppCompatActivity {
             case android.R.id.home:
                 //TODO
 //                frg = (DetailsFragment) fragment;
-//                frg.saveMeat();
+//                frg.saveDetailMeat();
                 StockUtil.changeFragment(this, new AllListFragment(), "AllListFragment");
                 break;
             case R.id.action_save:
                 if (fragment instanceof DetailsFragment) {
                     frg = (DetailsFragment) fragment;
-                    frg.saveMeat();
+                    frg.saveDetailMeat();
                 }
-                Log.i(TAG, "onOptionsItemSelected: action_settings");
                 break;
             case R.id.action_add:
                 StockUtil.changeFragment(this,
-                        DetailsFragment.newInstans(new Meat()), "AllListFragment");
+                        DetailsFragment.newInstance(new Meat()), "DetailsFragment");
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -92,10 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Log.i(TAG, "onBackPressed");
         if (getSupportFragmentManager().getBackStackEntryCount() <= 1) {
             finish();
-            return;    
+            return;
         }
         super.onBackPressed();
         getSupportFragmentManager().popBackStack();
@@ -115,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void setTagFrg(Activity activity, String tagFrg) {
-        Log.i(TAG, "setTagFrg: " + tagFrg);
         ((StockApp) activity.getApplication()).setTagFrg(tagFrg);
         ((MainActivity) activity).createMenu();
     }

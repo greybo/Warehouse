@@ -30,6 +30,9 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.stock.utils.StockConstants.CONST_COMING;
+import static com.stock.utils.StockConstants.CONST_OUTPUT;
+
 /**
  * Created by m on 29.07.2017.
  */
@@ -62,9 +65,9 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
     @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
-    public static DetailsFragment newInstans(Meat meat) {
+    public static DetailsFragment newInstance(Meat meat) {
         DetailsFragment frg = new DetailsFragment();
-        frg.meat = meat;
+        DetailsFragment.meat = meat;
         return frg;
     }
 
@@ -95,18 +98,18 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             calendar.set(year, month, dayOfMonth);
-            if (dateField.equals("coming")) {
+            if (dateField.equals(CONST_COMING)) {
                 meat.setDateComing(calendar.getTimeInMillis());
                 dateComing.setText(sdf.format(calendar.getTime()));
             }
-            if (dateField.equals("output")) {
+            if (dateField.equals(CONST_OUTPUT)) {
                 meat.setDateOutput(calendar.getTimeInMillis());
                 dateOutput.setText(sdf.format(calendar.getTime()));
             }
         }
     };
 
-    public void saveMeat() {
+    public void saveDetailMeat() {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         showProgressDialog();
         MeatDao dao = new MeatDao(handler);
@@ -123,10 +126,10 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         new DatePickerDialog(getActivity(), dateSetListener, year, month, day).show();
         switch (v.getId()) {
             case R.id.date_coming:
-                dateField = "coming";
+                dateField = CONST_COMING;
                 break;
             case R.id.date_output:
-                dateField = "output";
+                dateField = CONST_OUTPUT;
                 break;
         }
     }
@@ -187,7 +190,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Сохранение");
+        progressDialog.setMessage(getString(R.string.detail_frg_save));
         progressDialog.show();
     }
 
@@ -213,7 +216,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             double weightLost = convertToDouble(weightComing.getText().toString())
                     - convertToDouble(weightOutput.getText().toString());
             double result = (weightLost * 100) / convertToDouble(weightComing.getText().toString());
-            shrinkage.setText(String.format("Усушка: %.2f ", result) + "%");
+            shrinkage.setText(String.format(getString(R.string.detail_frg_shrinkage), result, "%"));
         } else {
             return;
         }
@@ -224,7 +227,7 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
             double output = convertToDouble(priceOutput.getText().toString())
                     * convertToDouble(weightOutput.getText().toString());
             double prof = output - coming;
-            profit.setText(String.format("Прибыль: %.2f грн", prof));
+            profit.setText(String.format(getString(R.string.detail_frg_profit), prof));
         }
     }
 

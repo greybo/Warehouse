@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Склад</string>
+    <string name="detail_frg_save">Сохранение</string>
+    <string name="detail_frg_shrinkage">Усушка: %1$.2f %2$s</string>
+    <string name="detail_frg_profit">Прибыль: %.2f грн</string>
+    <string name="alllist_frg_load_list">Загрузка списка</string>
+    <string name="alllist_frg_load_title_warehouse">Список</string>
 </resources>
