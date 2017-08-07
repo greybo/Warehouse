@@ -2,6 +2,7 @@ package com.stock.dao;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 
 public class MeatDao extends ObjectDao {
+    private static final String TAG = MeatDao.class.getSimpleName();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference meatRef;
     private final static String MEAT_DATABASE_PATH = "meat";
@@ -70,6 +72,7 @@ public class MeatDao extends ObjectDao {
     }
 
     public void getAllMeats(final String key) {
+        //noinspection ConstantConditions
         Query query;
         final int limit = 30;
         if (key != null) {
@@ -105,6 +108,21 @@ public class MeatDao extends ObjectDao {
                 error(StockConstants.HANDLER_RESULT_ERR);
             }
         });
+    }
+
+    public void recordsCurrentUser(ArrayList<Meat> list) {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        ArrayList<Meat> meatsFilter = new ArrayList<>();
+        Log.i(TAG, "recordsCurrentUser " + uid + " size: " + list.size());
+        if (list.size() > 0) {
+            for (Meat m : list) {
+                String email = m.getUserId();
+                if (email != null && m.getUserId().equals(uid)) {
+                    meatsFilter.add(m);
+                }
+            }
+        }
+        success(StockConstants.HANDLER_MEAT_FITER_LIST_OK, meatsFilter);
     }
 
     public void setUpdateAdapter(UpdateAdapter observer) {

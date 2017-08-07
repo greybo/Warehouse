@@ -15,8 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.stock.R;
 import com.stock.MainActivity;
+import com.stock.R;
 import com.stock.adapter.MeatAdapter;
 import com.stock.dao.MeatDao;
 import com.stock.entity.Meat;
@@ -27,7 +27,7 @@ import com.stock.utils.UpdateAdapter;
 import java.util.ArrayList;
 
 /**
- * Created by m on 02.08.2017.
+ * Created by greybo on 02.08.2017.
  */
 
 public class AllListFragment extends Fragment implements UpdateAdapter {
@@ -142,13 +142,21 @@ public class AllListFragment extends Fragment implements UpdateAdapter {
             switch (msg.what) {
                 case StockConstants.HANDLER_RESULT_LIST:
                     ArrayList<Meat> list = (ArrayList<Meat>) msg.obj;
-                    allMeats.addAll(list);
-                    displayDelay(list);
-//                    addEntriesToAdapter(list);
+                    dao.recordsCurrentUser(list);
                     key = list.get(list.size() - 1).getId();
                     break;
                 case StockConstants.HANDLER_NOT_FOUND:
                     hideProgress();
+                    break;
+                case StockConstants.HANDLER_MEAT_FITER_LIST_OK:
+                    ArrayList<Meat> listFilter = (ArrayList<Meat>) msg.obj;
+                    if (listFilter.size()>0){
+                        allMeats.addAll(listFilter);
+                        displayDelay(listFilter);
+                    }else {
+                        isLoading = true;
+                        dao.getAllMeats(key);
+                    }
                     break;
             }
         }

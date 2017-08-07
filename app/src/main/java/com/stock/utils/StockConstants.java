@@ -17,8 +17,10 @@ public class StockConstants {
     public final static int HANDLER_NOT_FOUND = 10103;
     public final static int HANDLER_RESULT_ERR = 10104;
 
-    public final static int HANDLER_USER_EXSIST_OK = 10201;
-    public final static int HANDLER_USER_NOT_FOUND = 10202;
-    public final static int HANDLER_USER_NEW_CREATE = 10203;
-    public final static int HANDLER_USER_RESULT_ERR = 10204;
+    public final static int HANDLER_USER_EXSIST_OK = 10111;
+    public final static int HANDLER_USER_NOT_FOUND = 10112;
+    public final static int HANDLER_USER_NEW_CREATE = 10113;
+    public final static int HANDLER_USER_RESULT_ERR = 10114;
+
+    public static final int HANDLER_MEAT_FITER_LIST_OK =10121 ;
 }

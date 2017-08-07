@@ -6,11 +6,11 @@
     <string name="alllist_frg_load_list">Загрузка списка</string>
     <string name="alllist_frg_load_title_warehouse">Список</string>
     <string name="signup_act_creating_account">Creating Account...</string>
-    <string name="signup_act_login_failed">Login failed</string>
-    <string name="signup_act_email_error">enter a valid email address</string>
-    <string name="signup_act_password_error">between 4 and 10 alphanumeric characters</string>
+    <string name="signup_act_login_failed">Неправильно заполнены поля</string>
+    <string name="signup_act_email_error">Введите действительный адрес электронной почты</string>
+    <string name="signup_act_password_error">Должно быть 4-10 букв-цифр</string>
     <string name="login_act_authenticating">Authenticating...</string>
-    <string name="login_act_login_failed">Login failed</string>
-    <string name="login_act_email_error">enter a valid email address</string>
-    <string name="login_act_password_error">between 4 and 10 alphanumeric characters</string>
+    <string name="login_act_login_failed">Неправильный логин или пароль</string>
+    <string name="login_act_email_error">Введите действительный адрес электронной почты</string>
+    <string name="login_act_password_error">Должно быть 4-10 букв-цифр</string>
 </resources>
