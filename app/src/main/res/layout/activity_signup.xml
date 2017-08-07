@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <android.support.design.widget.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="50dp"
+                android:hint="User name">
+
+                <EditText
+                    android:id="@+id/upUserName"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:focusable="false"
+                    android:inputType="textAutoComplete"
+                    android:textStyle="bold" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:hint="Email">
+
+                <EditText
+                    android:id="@+id/upEmail"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:inputType="textEmailAddress"
+                    android:textStyle="bold" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:hint="Password"
+                app:hintAnimationEnabled="true"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/upPassword"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:inputType="textPassword"
+                    android:textStyle="bold" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:hint="Password confirm"
+                app:hintAnimationEnabled="true"
+                app:passwordToggleEnabled="true">
+
+                <EditText
+                    android:id="@+id/upPasswordConfirm"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:inputType="textPassword"
+                    android:textStyle="bold" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/up_sign_up_btn"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:text="log up"
+                android:textColor="@color/colorPrimaryTon1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/link_login"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:text="Already a member? Login"
+                android:textSize="16dip" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

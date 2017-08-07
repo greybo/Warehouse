@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.stock.R;
 import com.stock.dao.MeatDao;
 import com.stock.entity.Meat;
+import com.stock.utils.StockConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -174,11 +175,11 @@ public class DetailsFragment extends Fragment implements View.OnClickListener {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case MeatDao.HANDLER_RESULT_OK:
+                case StockConstants.HANDLER_RESULT_OK:
                     progressDialog.dismiss();
                     getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
                     break;
-                case MeatDao.HANDLER_RESULT_ERR:
+                case StockConstants.HANDLER_RESULT_ERR:
                     progressDialog.dismiss();
                     break;
             }

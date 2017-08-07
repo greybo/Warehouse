@@ -15,6 +15,7 @@ public class Meat {
     private double priceOutput;
     private double profit;
     private boolean sync;
+    private String userId;
 
     public Meat() {
     }
@@ -91,10 +92,18 @@ public class Meat {
         this.sync = sync;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Meat{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", dateComing=" + dateComing +
                 ", weigthComing=" + weigthComing +
                 ", priceComing=" + priceComing +
@@ -103,6 +112,7 @@ public class Meat {
                 ", priceOutput=" + priceOutput +
                 ", profit=" + profit +
                 ", sync=" + sync +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 }

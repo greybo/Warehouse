@@ -1,6 +1,7 @@
 package com.stock;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.stock.activity.LoginActivity;
 import com.stock.entity.Meat;
 import com.stock.fragment.AllListFragment;
 import com.stock.fragment.DetailsFragment;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.splashScreenTheme);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         showCurrentFragment();

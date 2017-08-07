@@ -20,7 +20,9 @@ import com.stock.MainActivity;
 import com.stock.adapter.MeatAdapter;
 import com.stock.dao.MeatDao;
 import com.stock.entity.Meat;
+import com.stock.utils.StockConstants;
 import com.stock.utils.StockUtil;
+import com.stock.utils.UpdateAdapter;
 
 import java.util.ArrayList;
 
@@ -28,7 +30,7 @@ import java.util.ArrayList;
  * Created by m on 02.08.2017.
  */
 
-public class AllListFragment extends Fragment {
+public class AllListFragment extends Fragment implements UpdateAdapter {
 
     private ListView listView;
     private MeatDao dao;
@@ -45,6 +47,7 @@ public class AllListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_all_list, container, false);
         listView = (ListView) view.findViewById(R.id.listViewAll);
+
         progressBar = new ProgressBar(getActivity());
 //        isLoading = true;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,7 +72,7 @@ public class AllListFragment extends Fragment {
         } else {
             recreateAdapter();
         }
-
+        dao.setUpdateAdapter(this);
         return view;
     }
 
@@ -137,14 +140,14 @@ public class AllListFragment extends Fragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case MeatDao.HANDLER_RESULT_LIST:
+                case StockConstants.HANDLER_RESULT_LIST:
                     ArrayList<Meat> list = (ArrayList<Meat>) msg.obj;
                     allMeats.addAll(list);
                     displayDelay(list);
 //                    addEntriesToAdapter(list);
                     key = list.get(list.size() - 1).getId();
                     break;
-                case MeatDao.HANDLER_NOT_FOUND:
+                case StockConstants.HANDLER_NOT_FOUND:
                     hideProgress();
                     break;
             }
@@ -177,5 +180,17 @@ public class AllListFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+//        MeatDao.unregisterObserver(this);
+    }
+
+    @Override
+    public void onUpdate() {
+        allMeats = null;
+        key = null;
     }
 }
