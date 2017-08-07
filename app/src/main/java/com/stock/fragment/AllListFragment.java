@@ -96,21 +96,6 @@ public class AllListFragment extends Fragment implements UpdateAdapter {
         }
     };
 
-    private void displayDelay(final ArrayList<Meat> list) {
-        if (key == null) {
-            addEntriesToAdapter(list);
-            return;
-        }
-        Handler h = new Handler();
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                addEntriesToAdapter(list);
-            }
-        };
-        h.postDelayed(runnable, 2000);
-    }
-
     private void recreateAdapter() {
         adapter = null;
         addEntriesToAdapter(allMeats);
@@ -152,7 +137,7 @@ public class AllListFragment extends Fragment implements UpdateAdapter {
                     ArrayList<Meat> listFilter = (ArrayList<Meat>) msg.obj;
                     if (listFilter.size()>0){
                         allMeats.addAll(listFilter);
-                        displayDelay(listFilter);
+                        addEntriesToAdapter(listFilter);
                     }else {
                         isLoading = true;
                         dao.getAllMeats(key);
