@@ -21,12 +21,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by m on 06.08.2017.
+ * Created by greybo on 06.08.2017.
  */
 
 public class SignupActivity extends AppCompatActivity {
 
-    private static final String TAG = "SignupActivity";
+    private static final String TAG = SignupActivity.class.getSimpleName();
 
     @BindView(R.id.upUserName)
     EditText nameText;
@@ -77,11 +77,9 @@ public class SignupActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case StockConstants.HANDLER_USER_NEW_CREATE:
-                    Log.d(TAG, "HANDLER_USER_NEW_CREATE");
                     onSignupSuccess();
                     break;
                 case StockConstants.HANDLER_USER_RESULT_ERR:
-                    Log.d(TAG, "HANDLER_USER_RESULT_ERR");
                     onSignupFailed();
                     break;
             }
@@ -101,7 +99,7 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+        progressDialog.setMessage(getString(R.string.signup_act_creating_account));
         progressDialog.show();
 
         name = nameText.getText().toString();
@@ -132,7 +130,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), R.string.signup_act_login_failed, Toast.LENGTH_LONG).show();
         signupButton.setEnabled(true);
     }
 
@@ -151,14 +149,14 @@ public class SignupActivity extends AppCompatActivity {
 //        }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("enter a valid email address");
+            emailText.setError(getString(R.string.signup_act_email_error));
             valid = false;
         } else {
             emailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError(getString(R.string.signup_act_password_error));
             valid = false;
         } else {
             passwordText.setError(null);

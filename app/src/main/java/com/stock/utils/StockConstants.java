@@ -4,7 +4,7 @@ import com.stock.fragment.AllListFragment;
 import com.stock.fragment.DetailsFragment;
 
 /**
- * Created by m on 03.08.2017.
+ * Created by greybo on 03.08.2017.
  */
 
 public class StockConstants {

@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by m on 06.08.2017.
+ * Created by greybo on 06.08.2017.
  */
 
 public class SplashActivity extends AppCompatActivity {

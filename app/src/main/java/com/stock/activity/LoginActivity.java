@@ -17,14 +17,13 @@ import android.widget.Toast;
 import com.stock.MainActivity;
 import com.stock.R;
 import com.stock.dao.UserDao;
-import com.stock.entity.User;
 import com.stock.utils.StockConstants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by m on 06.08.2017.
+ * Created by greybo on 06.08.2017.
  */
 
 public class LoginActivity extends AppCompatActivity {
@@ -112,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
+        progressDialog.setMessage(getString(R.string.login_act_authenticating));
         progressDialog.show();
     }
 
@@ -157,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), R.string.login_act_login_failed, Toast.LENGTH_LONG).show();
         loginButton.setEnabled(true);
     }
 
@@ -169,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailText.requestFocus();
-            emailText.setError("enter a valid email address");
+            emailText.setError(getString(R.string.login_act_email_error));
             valid = false;
         } else {
             emailText.setError(null);
@@ -177,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
             passwordLayout.setPasswordVisibilityToggleEnabled(false);
-            passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError(getString(R.string.login_act_password_error));
             valid = false;
         } else {
             passwordLayout.setPasswordVisibilityToggleEnabled(true);
@@ -189,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (dao.getCurrentUserInfo()) {
+        if (dao.isCurrentUser()) {
             onLoginSuccess();
         }
     }

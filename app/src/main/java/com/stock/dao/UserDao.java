@@ -1,7 +1,6 @@
 package com.stock.dao;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -14,20 +13,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.stock.utils.StockConstants;
 
 /**
- * Created by m on 07.08.2017.
+ * Created by greybo on 07.08.2017.
  */
 
 public class UserDao extends ObjectDao {
     private static final String TAG = UserDao.class.getSimpleName();
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseUser user;
 
     public UserDao(Handler handler) {
         super(handler);
         mAuth = FirebaseAuth.getInstance();
         registerListener();
-
     }
 
     public void exitingUser(Activity activity, String email, String password) {
@@ -42,8 +39,6 @@ public class UserDao extends ObjectDao {
                             Log.i(TAG, "signInWithEmail:failed", task.getException());
                             success(StockConstants.HANDLER_USER_NOT_FOUND);
                         }
-
-                        // ...
                     }
                 });
     }
@@ -75,14 +70,13 @@ public class UserDao extends ObjectDao {
                     // User is signed out
                     Log.i(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
         mAuth.addAuthStateListener(mAuthListener);
     }
 
-    public boolean getCurrentUserInfo() {
-        return  mAuth.getCurrentUser()!=null;
+    public boolean isCurrentUser() {
+        return FirebaseAuth.getInstance().getCurrentUser()!=null;
     }
 
     public void unregister() {
