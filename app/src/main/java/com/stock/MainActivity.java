@@ -3,6 +3,7 @@ package com.stock;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.stock.activity.LoginActivity;
 import com.stock.entity.Meat;
 import com.stock.fragment.AllListFragment;
@@ -74,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 //TODO
 //                frg = (DetailsFragment) fragment;
 //                frg.saveDetailMeat();
-                StockUtil.changeFragment(this, new AllListFragment(), "AllListFragment");
+//                StockUtil.changeFragment(this, new AllListFragment(), "AllListFragment");
+                onBackPressed();
                 break;
             case R.id.action_save:
                 if (fragment instanceof DetailsFragment) {
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() <= 1) {
-            finish();
+            exit();
             return;
         }
         super.onBackPressed();
@@ -120,6 +124,25 @@ public class MainActivity extends AppCompatActivity {
 
     public String getTagFrg(Activity activity) {
         return ((StockApp) activity.getApplication()).getTagFrg();
+    }
+
+    private void exit() {
+        new MaterialDialog.Builder(this)
+                .content("Хотите выйти из приложения?")
+                .positiveText("Выйти")
+                .negativeText("Отмена")
+                .cancelable(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        finish();
+                    }
+                }).onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                dialog.dismiss();
+            }
+        }).show();
     }
 
     //TODO
