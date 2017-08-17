@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by m on 02.08.2017.
+ * Created by greybo on 02.08.2017.
  */
 
 public class MeatAdapter extends BaseAdapter {
